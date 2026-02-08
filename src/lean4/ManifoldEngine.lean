@@ -1,6 +1,13 @@
 /-
 Universal Manifold Engine - Mathematical Proofs in Lean4
 Formal verification of Takens' Embedding Theorem and ADMM Convergence
+
+NOTE: This file contains proof sketches and statements. Some proofs use 'sorry'
+placeholders as they require advanced topology and measure theory from mathlib.
+The complete formal verification is ongoing work. Key theorems proven:
+- L1 norm convexity (complete)
+- Basic embedding properties (complete)
+Other theorems are axiomatized or sketched for documentation purposes.
 -/
 
 import Mathlib.Analysis.NormedSpace.Basic

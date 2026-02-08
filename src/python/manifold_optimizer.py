@@ -85,8 +85,9 @@ def manifold_denoise(signal: np.ndarray,
         
         return x.value if x.value is not None else signal
     
-    except Exception as e:
-        # Silent fallback - just return original signal
+    except Exception:
+        # Fallback on optimization failure - return original signal
+        # In production, consider logging: logging.warning("Optimization failed")
         return signal
 
 
@@ -287,7 +288,8 @@ class ManifoldOptimizer:
                     if error < best_error:
                         best_error = error
                         best_params = {'lambda': lam, 'rho': rho_val}
-                except:
+                except Exception:
+                    # Skip parameter combinations that fail
                     continue
         
         self.lambda_reg = best_params['lambda']

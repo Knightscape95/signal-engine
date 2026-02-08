@@ -43,6 +43,8 @@ inline int32_t fixed_mul(int32_t a, int32_t b) {
 
 /**
  * Fixed-point division
+ * Note: Returns extreme values on division by zero for embedded systems
+ * where exception handling may not be available. Check divisor before calling.
  */
 inline int32_t fixed_div(int32_t a, int32_t b) {
     if (b == 0) return (a >= 0) ? std::numeric_limits<int32_t>::max() 
@@ -95,6 +97,18 @@ public:
     Vector(const Vector& other) : size_(other.size_), capacity_(other.capacity_) {
         data_ = new T[capacity_];
         for (size_t i = 0; i < size_; ++i) data_[i] = other.data_[i];
+    }
+    
+    // Copy assignment operator (Rule of Three)
+    Vector& operator=(const Vector& other) {
+        if (this != &other) {
+            delete[] data_;
+            size_ = other.size_;
+            capacity_ = other.capacity_;
+            data_ = new T[capacity_];
+            for (size_t i = 0; i < size_; ++i) data_[i] = other.data_[i];
+        }
+        return *this;
     }
     
     T& operator[](size_t i) { return data_[i]; }
