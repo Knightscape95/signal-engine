@@ -257,7 +257,7 @@ signal-engine/
 │       └── ManifoldEngine.lean         # Mathematical proofs
 ├── examples/
 │   └── demo.py                         # Complete pipeline demo
-└── MANIFOLD.md                         # This file (only documentation)
+└── README.md                           # This file (only documentation)
 ```
 
 ## License & Citation
@@ -271,6 +271,6 @@ Combining Takens' Embedding, Convex Optimization, and Hardware Deployment
 
 ## Contact & Contribution
 
-This is a minimal, production-focused implementation. No README files, no publication benchmarks - just clean, deployable code with one documentation file.
+This is a minimal, production-focused implementation. One comprehensive documentation file, no publication benchmarks - just clean, deployable code.
 
 **Core Principle**: "Every signal is a projection of a physical manifold. Unfold it, optimize it, deploy it."
