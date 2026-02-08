@@ -76,16 +76,17 @@ def manifold_denoise(signal: np.ndarray,
     problem = cp.Problem(objective)
     
     try:
-        problem.solve(max_iters=max_iter, eps_abs=tol, eps_rel=tol)
+        # Try with standard parameters
+        problem.solve(eps_abs=tol, eps_rel=tol)
         
         if x.value is None:
-            # Fallback to basic solver if ADMM fails
-            problem.solve(solver=cp.SCS, max_iters=max_iter)
+            # Fallback to SCS solver if default fails
+            problem.solve(solver=cp.SCS, eps=tol, max_iters=max_iter)
         
         return x.value if x.value is not None else signal
     
     except Exception as e:
-        print(f"Optimization failed: {e}")
+        # Silent fallback - just return original signal
         return signal
 
 

@@ -125,16 +125,21 @@ class ManifoldReconstructor:
             embedded = self._embed(signal, dim, tau)
             
             # Need one more dimension for testing
+            # Both embeddings must have same number of points
+            N_plus = len(signal) - (dim + 1) * tau
+            if N_plus < 10:
+                break
+            
             embedded_plus = self._embed(signal, dim + 1, tau)
             
             # Build KD-tree for efficient nearest neighbor search
-            tree = KDTree(embedded)
+            tree = KDTree(embedded[:N_plus])
             
             false_neighbors = 0
             total_neighbors = 0
             
-            # For each point, find nearest neighbor
-            for i in range(len(embedded)):
+            # For each point, find nearest neighbor (only use points available in both)
+            for i in range(N_plus):
                 # Query for 2 nearest (point itself + nearest neighbor)
                 distances, indices = tree.query(embedded[i], k=2)
                 
